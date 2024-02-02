@@ -1,0 +1,72 @@
+[
+    {
+        "enable": true,
+        "prefix": [
+            "hello2"
+        ],
+        "body": "hello2",
+        "script": "./hello2.js",
+        "description": "我的?"
+    },
+    {
+        "prefix": [
+            "ref"
+        ],
+        "body": "#{{1}}",
+        "regexp": {
+            "pattern": "\\.([\\p{L}\\p{N}]+)",
+            "flag": "u"
+        },
+        "dynamicMode": true,
+        "script": "./ng-ref.js"
+    },
+    {
+        "prefix": [
+            "dir"
+        ],
+        "body": "{{1}}",
+        "regexp": {
+            "pattern": "\\.([\\p{L}\\p{N}]+)",
+            "flag": "u"
+        },
+        "dynamicMode": true,
+        "script": "./ng-directive.js"
+    },
+    {
+        "prefix": [
+            "pipe"
+        ],
+        "body": "{{1}}",
+        "regexp": {
+            "pattern": "\\.([\\p{L}\\p{N}]+)",
+            "flag": "u"
+        },
+        "dynamicMode": true,
+        "script": "./ng-pipe.js"
+    },
+    {
+        "prefix": [
+            "cfn"
+        ],
+        "body": "{{1}}()",
+        "regexp": {
+            "pattern": "\\.([\\p{L}\\p{N}]+)",
+            "flag": "u"
+        },
+        "dynamicMode": true,
+        "script": "./ng-fn-declaration.js"
+    },
+    {
+        "prefix": [
+            "cvar"
+        ],
+        "body": "{{1}}",
+        "regexp": {
+            "pattern": "\\.([\\p{L}\\p{N}]+)",
+            "flag": "u"
+        },
+        "dynamicMode": true,
+        "script": "./ng-fn-declaration.js",
+        "parameters":{"variable":true}
+    }
+]
