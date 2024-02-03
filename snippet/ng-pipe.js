@@ -1,4 +1,4 @@
-/** @type {import('/home/chen/my-project/code-factory-plugin/dist/script.define').ScriptFunction} */
+/** @type {import('../script.define').ScriptFunction} */
 module.exports = async (util, rule, host, injector) => {
   let directiveInput = util.documentContext.snippetParameters[1];
   let common = require('../shared/directive-or-pipe.common');

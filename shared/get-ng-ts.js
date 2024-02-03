@@ -1,4 +1,4 @@
-/** @type {(option:import('/home/chen/my-project/code-factory-plugin/dist/script.define').NodeQueryOption,util:import('/home/chen/my-project/code-factory-plugin/dist/script.define').Util)=>import('/home/chen/my-project/code-factory-plugin/dist/script.define').NodeQueryOption} */
+/** @type {(option:import('../script.define').NodeQueryOption,util:import('../script.define').Util)=>import('../script.define').NodeQueryOption} */
 
 module.exports = (option, util) => {
   return {

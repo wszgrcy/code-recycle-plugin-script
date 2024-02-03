@@ -1,4 +1,4 @@
-/** @type {import('/home/chen/my-project/code-factory-plugin/dist/script.define').ScriptFunction} */
+/** @type {import('../script.define').ScriptFunction} */
 module.exports = async (util, rule, host, injector) => {
   console.log('视图 hello');
   return {

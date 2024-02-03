@@ -1,4 +1,4 @@
-/** @type {import('/home/chen/my-project/code-factory-plugin/dist/script.define').ScriptFunction} */
+/** @type {import('../script.define').ScriptFunction} */
 module.exports = async (util, rule, host, injector) => {
   let getNgTs = require('../shared/get-ng-ts');
 

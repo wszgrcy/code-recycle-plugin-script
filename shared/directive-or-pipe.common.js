@@ -1,5 +1,5 @@
 const pathRelative = require('../shared/path-relative');
-/** @type {(option:{type:string,compare:(snippet:string,input:string) => boolean,findName:string,templatePath:string,defaultImportPathName:string,defaultClassName:string,nameInput:string},util:import('/home/chen/my-project/code-factory-plugin/dist/script.define').Util) =>Promise<import('/home/chen/my-project/code-factory-plugin/dist/script.define').FileQueryList> }  */
+/** @type {(option:{type:string,compare:(snippet:string,input:string) => boolean,findName:string,templatePath:string,defaultImportPathName:string,defaultClassName:string,nameInput:string},util:import('../script.define').Util) =>Promise<import('../script.define').FileQueryList> }  */
 module.exports = (option, util) => {
   let getNgTs = require('../shared/get-ng-ts');
   /** custom variable */

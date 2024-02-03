@@ -22,7 +22,7 @@ function replaceI(str, find, replace, caseSensitive) {
     return replaceCaseInsensitive(str, find, replace);
   }
 }
-/** @type {import('/home/chen/my-project/code-factory-plugin/dist/script.define').ScriptFunction} */
+/** @type {import('../script.define').ScriptFunction} */
 module.exports = async (util, rule, host, injector) => {
   let ignore = (await rule.globalVariable.getValue('ignore')) ?? true;
   rule.globalVariable.setValue('ignore', ignore);
