@@ -5,6 +5,7 @@ module.exports = async (util, rule, host, injector) => {
     type: 'button',
     callback: () => {
       console.log('hello111');
+      rule.debug.output('hello world')
     },
     config: { label: '点击' },
   };

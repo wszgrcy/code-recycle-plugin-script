@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-    selector: 'template',
+    selector: 'template',standalone:true
 })
 export class TemplateClass { }

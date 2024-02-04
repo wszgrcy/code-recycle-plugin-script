@@ -7,7 +7,7 @@ module.exports = async (util, rule, host, injector) => {
                     query: `VariableDeclarationList`,
                 },
                 {
-                    query: `NumericLiteral`,
+                    query: `StringLiteral`,
                     children: [
                         { parentMap: 'parent2.0', query: `Identifier`, replace: `changed` }
                     ]
