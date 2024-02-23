@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@code-recycle/cli": "^1.0.39"
+    "@code-recycle/cli": "1.1.0"
   }
 }

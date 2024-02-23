@@ -5,3 +5,8 @@
 ## 文档
 | [中文](https://wszgrcy.github.io/code-recycle/#/zh-Hans/README) | [English](https://wszgrcy.github.io/code-recycle/#/en-US/README) |
 | --------------------------------------------------------------- | ---------------------------------------------------------------- |
+
+## 使用
+- npm i
+- `npm run start`/`npm run start2`
+- 查看 `test/test.ts` / `test/test2.ts` 的变化情况
