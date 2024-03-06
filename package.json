@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "code-recycle ./cli/index.ts --debug",
-    "start2": "code-recycle ./cli/index2.ts"
+    "start": "code-recycle ./cli/index.ts --debug"
   },
   "author": "",
   "license": "ISC",
