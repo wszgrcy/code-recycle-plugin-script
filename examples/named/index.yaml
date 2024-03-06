@@ -1,0 +1,7 @@
+changeList:
+  - path: ./examples/named/test.ts
+    list:
+      - query: let
+        name: 'value1'
+        replace: "{{'item.value1'|ctxValue}}1"
+        mode: like

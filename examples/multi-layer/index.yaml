@@ -1,0 +1,11 @@
+changeList:
+  - path: ./examples/multi-layer/test.ts
+    list:
+      - query: "[[$letVar]]a=6"
+        replace: 
+          letVar: "const"
+        mode: like
+      - query: "let [[$define]]=6"
+        replace: 
+          define: "aa"
+        mode: like

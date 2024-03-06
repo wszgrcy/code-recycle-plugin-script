@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "code-recycle ./cli/index.ts",
+    "start": "code-recycle ./cli/index.ts --debug",
     "start2": "code-recycle ./cli/index2.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@code-recycle/cli": "1.1.0"
+    "@code-recycle/cli": "^1.2.8"
+  },
+  "dependencies": {
+    "@cyia/parser-antlr4": "^1.0.2",
+    "@cyia/parser-tree-sitter": "^0.0.2"
   }
 }

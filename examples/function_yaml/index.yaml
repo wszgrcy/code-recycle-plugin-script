@@ -1,0 +1,7 @@
+changeList:
+  - path: ./examples/function_yaml/test.ts
+    list:
+      - query: "[[$letVar]]a=6"
+        replace: 
+          letVar: !js/function (ctx)=> ctx.pipe.ctxInferValue('','letVar')+'1'
+        mode: like

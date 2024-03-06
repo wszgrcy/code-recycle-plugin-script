@@ -1,0 +1,7 @@
+changeList:
+  - path: ./examples/like/test.ts
+    list:
+      - query: "[[$letVar]]a=6"
+        replace: 
+          letVar: "{{''|ctxInferValue:'letVar'}}1"
+        mode: like

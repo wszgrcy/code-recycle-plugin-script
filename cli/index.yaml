@@ -1,0 +1,7 @@
+changeList:
+- path: ./test/test.ts
+  list:
+    - query: let a=[[$var]]
+      mode: like
+      replace: 
+        var: '7'

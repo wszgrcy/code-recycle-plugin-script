@@ -1,0 +1,12 @@
+config:
+  default:
+    nodeQueryOption:
+      mode: like
+
+changeList:
+  - path: ./examples/like/test.ts
+    list:
+      - query: "let a=[[$value]]"
+        children: 
+          - query: a
+            replace: "{{''|ctxValue}}{{'parent'|ctxInferValue:'value'}}"
