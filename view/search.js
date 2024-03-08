@@ -111,7 +111,7 @@ module.exports = async (util, rule, host, injector) => {
         fixed: false,
         config: await rule.view.button({ label: 'find', color: 'primary', type: 'flat' }, async () => {
           let ignore = await rule.globalVariable.get('ignore');
-          let result = await rule.read.fileResolveByFileQuery(await rule.globalVariable.get('glob'), undefined, {
+          let result = await rule.read.fileResolveByPattern(await rule.globalVariable.get('glob'), undefined, {
             queryMode: 0,
             languageOption: await rule.globalVariable.get('languageConfig'),
             all: true,
