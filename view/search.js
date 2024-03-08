@@ -28,86 +28,97 @@ module.exports = async (util, rule, host, injector) => {
   rule.globalVariable.set('ignore', ignore);
   let list = await rule.globalVariable.get('nodeList');
   return rule.view.grid({
-    list: [
-      {
-        x: 0,
-        y: 0,
-        cols: 4,
-        config: await rule.view.select(
-          'languageConfig',
-          {
-            label: 'languageConfig',
-            multiple: false,
-            placeholder: '',
-          },
-          util.parserList,
-          (item) => `${item.use}/${item.language}`,
-          (item) => item
-        ),
-      },
-      {
-        x: 0,
-        y: 1,
-        cols: 2,
-        config: await rule.view.input('selector', {
-          type: 'input',
-          color: '',
-          label: 'selector',
+    list: [{
+      cols: 4,
+      config: await rule.view.select(
+        'languageConfig',
+        {
+          label: 'languageConfig',
+          multiple: false,
           placeholder: '',
-        }),
-      },
+        },
+        util.parserList,
+        (item) => `${item.use}/${item.language}`,
+        (item) => item
+      ),
+    },
+    [{
+      cols: 2,
+      config: await rule.view.input('selector', {
+        type: 'input',
+        color: '',
+        label: 'selector',
+        placeholder: '',
+      }),
+    }, {
+
+      cols: 1,
+      fixed: false,
+      config: await rule.view.input('glob', {
+        type: 'input',
+        label: 'glob',
+        placeholder: '',
+        color: '',
+      }),
+    }, {
+
+      cols: 1,
+      fixed: true,
+      config: await rule.view.checkbox('ignore', {
+        color: 'primary',
+        icon: 'exclude',
+        fontSet: 'vscode',
+        type: 'icon',
+      }),
+    }],
+    [{
+
+      cols: 2,
+      fixed: false,
+      config: await rule.view.input('find', {
+        type: 'input',
+        label: '*find',
+        placeholder: '',
+        color: '',
+      }),
+    }, {
+
+      cols: 1,
+      fixed: true,
+      config: await rule.view.checkbox('case-sensitive', {
+        color: 'primary',
+        icon: 'case-sensitive',
+        fontSet: 'vscode',
+        type: 'icon',
+      }),
+    }, {
+
+      cols: 1,
+      fixed: true,
+      config: await rule.view.checkbox('regexp', {
+        color: 'primary',
+        icon: 'regex',
+        fontSet: 'vscode',
+        type: 'icon',
+      }),
+    },],
+    {
+
+      cols: 4,
+      fixed: false,
+      config: await rule.view.input('replace', {
+        type: 'input',
+        label: 'replace',
+        placeholder: '',
+        color: '',
+      }),
+    },
+
+    [
+
       {
-        x: 0,
-        y: 2,
-        cols: 2,
-        fixed: false,
-        config: await rule.view.input('find', {
-          type: 'input',
-          label: '*find',
-          placeholder: '',
-          color: '',
-        }),
-      },
-      {
-        x: 0,
-        y: 3,
-        cols: 4,
-        fixed: false,
-        config: await rule.view.input('replace', {
-          type: 'input',
-          label: 'replace',
-          placeholder: '',
-          color: '',
-        }),
-      },
-      {
-        x: 2,
-        y: 2,
-        cols: 1,
-        fixed: true,
-        config: await rule.view.checkbox('case-sensitive', {
-          color: 'primary',
-          icon: 'case-sensitive',
-          fontSet: 'vscode',
-          type: 'icon',
-        }),
-      },
-      {
-        x: 2,
-        y: 1,
-        cols: 1,
-        fixed: false,
-        config: await rule.view.input('glob', {
-          type: 'input',
-          label: 'glob',
-          placeholder: '',
-          color: '',
-        }),
-      },
-      {
-        x: 0,
-        y: 4,
-        cols: 2,
+
+        cols: 3,
         fixed: false,
         config: await rule.view.button({ label: 'find', color: 'primary', type: 'flat' }, async () => {
           let ignore = await rule.globalVariable.get('ignore');
@@ -117,8 +128,8 @@ module.exports = async (util, rule, host, injector) => {
             all: true,
             ignore: ignore
               ? Object.entries(await rule.read.setting(`search.exclude`))
-                  .filter(([key, value]) => value)
-                  .map(([key]) => key)
+                .filter(([key, value]) => value)
+                .map(([key]) => key)
               : undefined,
           });
           let list = [];
@@ -149,8 +160,7 @@ module.exports = async (util, rule, host, injector) => {
         }),
       },
       {
-        x: 2,
-        y: 4,
+
         cols: 2,
         fixed: false,
         config: await rule.view.button({ label: 'replace', color: 'accent', type: 'flat' }, async () => {
@@ -184,45 +194,23 @@ module.exports = async (util, rule, host, injector) => {
           rule.globalVariable.set('nodeList', undefined);
         }),
       },
-      {
-        x: 3,
-        y: 2,
-        cols: 1,
-        fixed: true,
-        config: await rule.view.checkbox('regexp', {
-          color: 'primary',
-          icon: 'regex',
-          fontSet: 'vscode',
-          type: 'icon',
-        }),
-      },
-      {
-        x: 3,
-        y: 1,
-        cols: 1,
-        fixed: true,
-        config: await rule.view.checkbox('ignore', {
-          color: 'primary',
-          icon: 'exclude',
-          fontSet: 'vscode',
-          type: 'icon',
-        }),
-      },
-      {
-        x: 0,
-        y: 5,
-        cols: 4,
-        fixed: false,
-        config: list
-          ? await rule.view.showData(
-              'nodeListResult',
-              {
-                type: 'node-list',
-              },
-              list
-            )
-          : undefined,
-      },
+    ],
+
+
+    {
+
+      cols: 4,
+      fixed: false,
+      config: list
+        ? await rule.view.showData(
+          'nodeListResult',
+          {
+            type: 'node-list',
+          },
+          list
+        )
+        : undefined,
+    },
     ],
   });
 };
