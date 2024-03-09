@@ -1,2 +1,5 @@
 /script.define.d.ts
 node_modules
+/.package
+/.parser
+/.tmp

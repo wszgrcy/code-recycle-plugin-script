@@ -21,10 +21,7 @@ module.exports = async (util, rule, host, injector) => {
                     let parent = context.getContext('parent');
                     let value = parent.getNodeValue().slice(1, -1);
                     let path = require('path');
-                    let result = path.relative(
-                      path.dirname(parent.node.path),
-                      util.documentContext.path,
-                    );
+                    let result = path.relative(path.dirname(parent.node.path), util.documentContext.path);
                     result = result.startsWith('..') ? result : './' + result;
                     return result !== value;
                   },
@@ -40,13 +37,7 @@ module.exports = async (util, rule, host, injector) => {
                       query: String.raw`ImportDeclaration:has(StringLiteral[value=\'@angular/core']):has(Identifier[value=ViewChild])`,
                       nullable: true,
                       callback: (context) => {
-                        return !context.node
-                          ? util.setChange.contextNode(
-                              context.file,
-                              `import { ViewChild } from '@angular/core';\n`,
-                              [0, 0],
-                            )
-                          : undefined;
+                        return !context.node ? { value: `import { ViewChild } from '@angular/core';\n`, range: [0, 0] } : undefined;
                       },
                     },
                   ],

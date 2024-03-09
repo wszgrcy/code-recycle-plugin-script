@@ -1,0 +1,5 @@
+changeList:
+  - path: ./examples/selector/test.ts
+    list:
+      - query: VariableDeclarationList:has(Identifier[value=a]) LetKeyword
+        replace: "{{''|ctxValue}}1"

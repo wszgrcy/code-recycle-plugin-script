@@ -1,15 +1,15 @@
 // cli中使用
-import type { ScriptFunction } from '@code-recycle/cli';
+/** @type {import('@code-recycle/cli').ScriptFunction} */
+
 // vscode中使用
-// import type { ScriptFunction } from '../script.define';
-let fn: ScriptFunction = async (util, rule, host, injector) => {
+/** @type {import('../script.define').ScriptFunction} */
+module.exports = async (util, rule, host, injector) => {
   let list = await util.changeList([
     {
       path: './test/test.ts',
       list: [{ query: 'let a=[[$var]]', mode: 'like', replace: { var: '7' } }],
     },
   ]);
-
   await util.updateChangeList(list);
-};
-export default fn;
+  await rule.hint.outputLog('hello world')
+}

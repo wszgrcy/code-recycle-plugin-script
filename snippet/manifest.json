@@ -6,7 +6,7 @@
         ],
         "body": "hello2",
         "script": "./hello2.js",
-        "description": "我的?"
+        "description": "描述-hello2"
     },
     {
         "prefix": [
