@@ -4,7 +4,7 @@ config:
       mode: like
 
 changeList:
-  - path: ./examples/like/test.ts
+  - path: ./examples/query-parent/test.ts
     list:
       - query: "let a=[[$value]]"
         children: 
