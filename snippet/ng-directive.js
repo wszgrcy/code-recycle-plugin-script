@@ -71,7 +71,7 @@ module.exports = async (util, rule, host, injector) => {
               return;
             }
             let importPath =
-              directiveData?.path || util.path.join(util.filePathGroup.currentDir, util.lodash.kebabCase(directiveName) + 'directive.ts');
+              directiveData?.path || util.path.join(util.filePathGroup.currentDir, util.lodash.kebabCase(directiveName) + '.ts');
             return [
               { value: `${directiveName},`, range: [importListRange[0] + 1, importListRange[0] + 1] },
               { value: `import { ${directiveName} } from '${pathRelative(ctx.node.path, importPath, util)}';\n`, range: [0, 0] },
