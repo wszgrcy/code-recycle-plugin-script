@@ -20,7 +20,7 @@ let fn: ScriptFunction = async (util, rule, host, injector) => {
         {
           cols: 3,
           config: await rule.view.input('selector', {
-            type: 'input',
+            type: 'textarea',
             color: '',
             label: 'selector',
             placeholder: '',
