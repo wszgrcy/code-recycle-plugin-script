@@ -3,8 +3,7 @@ module.exports = async (util, rule, host, injector) => {
   let pathRelative = require('../shared/path-relative');
   /** custom variable */
   let directiveInput = util.documentContext.snippetParameters[1];
-
-  let defaultName = util.lodash.capitalize(directiveInput) + 'Directive';
+  let defaultName =util.lodash.upperFirst(util.lodash.camelCase(directiveInput))  + 'Directive';
   let list = await util.changeList([
     {
       path: `${util.filePathGroup.currentDir}/*.ts`,
