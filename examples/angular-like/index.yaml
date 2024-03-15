@@ -1,0 +1,8 @@
+changeList:
+  - path: "**/*.ts"
+    glob: true
+    list:
+      - query: class FormControl
+        optional: true
+        multi: true
+        mode: like
