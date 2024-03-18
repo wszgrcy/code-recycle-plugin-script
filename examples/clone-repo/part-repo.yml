@@ -1,0 +1,9 @@
+changeList:
+  - type: copy
+    from: 
+      url: https://github.com/microsoft/vscode-extension-samples.git
+      match:
+        - /l10n-sample
+      output: /l10n-sample
+    to: ./l10n
+    source: git

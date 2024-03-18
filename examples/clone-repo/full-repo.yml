@@ -1,0 +1,5 @@
+changeList:
+  - type: copy
+    from: https://github.com/maximegris/angular-electron.git
+    to: ./ae
+    source: git
