@@ -4,4 +4,3 @@ module.exports = async (util, rule, host, injector) => {
   await rule.hint.outputLog('output:hello world')
   await rule.hint.dialogInfo('dialog:hello world')
 }
-module.exports.parameters = []

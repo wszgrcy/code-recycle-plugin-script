@@ -67,6 +67,21 @@
         },
         "dynamicMode": true,
         "script": "./ng-fn-declaration.js",
-        "parameters":{"variable":true}
+        "parameters": {
+            "variable": true
+        }
+    },
+    {
+        "prefix": [
+            "import"
+        ],
+        "body": " ",
+        "regexp": {
+            "pattern": "\\.([\\p{L}\\p{N}]+)",
+            "flag": "u"
+        },
+        "pattern": "**/*.ts",
+        "dynamicMode": true,
+        "script": "./import-class.ts"
     }
 ]

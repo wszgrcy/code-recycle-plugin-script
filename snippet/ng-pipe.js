@@ -103,4 +103,3 @@ module.exports = async (util, rule, host, injector) => {
   ]);
   await util.updateChangeList(list);
 };
-module.exports.parameters = [];

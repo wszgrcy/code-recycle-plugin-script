@@ -17,4 +17,3 @@ module.exports = async (util, rule, host, injector) => {
     ])
     await util.updateChangeList(result)
 }
-module.exports.parameters = []

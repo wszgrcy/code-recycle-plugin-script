@@ -13,4 +13,3 @@ module.exports = async (util, rule, host, injector) => {
     };
   };
 };
-module.exports.parameters = [];
