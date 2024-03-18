@@ -24,194 +24,193 @@ function replaceI(str, find, replace, caseSensitive) {
 }
 /** @type {import('../script.define').ScriptFunction} */
 module.exports = async (util, rule, host, injector) => {
-  let ignore = (await rule.globalVariable.get('ignore')) ?? true;
-  rule.globalVariable.set('ignore', ignore);
-  let list = await rule.globalVariable.get('nodeList');
-  return rule.view.grid({
-    list: [{
-      cols: 4,
-      config: await rule.view.select(
-        'languageConfig',
+  return async () => {
+    let ignore = (await rule.globalVariable.get('ignore')) ?? true;
+    rule.globalVariable.set('ignore', ignore);
+    let list = await rule.globalVariable.get('nodeList');
+    return rule.view.grid({
+      list: [
         {
-          label: 'languageConfig',
-          multiple: false,
-          placeholder: '',
+          cols: 4,
+          config: await rule.view.select(
+            'languageConfig',
+            {
+              label: 'languageConfig',
+              multiple: false,
+              placeholder: '',
+            },
+            util.parserList,
+            (item) => `${item.use}/${item.language}`,
+            (item) => item
+          ),
         },
-        util.parserList,
-        (item) => `${item.use}/${item.language}`,
-        (item) => item
-      ),
-    },
-    [{
-      cols: 2,
-      config: await rule.view.input('selector', {
-        type: 'input',
-        color: '',
-        label: 'selector',
-        placeholder: '',
-      }),
-    }, {
-
-      cols: 1,
-      fixed: false,
-      config: await rule.view.input('glob', {
-        type: 'input',
-        label: 'glob',
-        placeholder: '',
-        color: '',
-      }),
-    }, {
-
-      cols: 1,
-      fixed: true,
-      config: await rule.view.checkbox('ignore', {
-        color: 'primary',
-        icon: 'exclude',
-        fontSet: 'vscode',
-        type: 'icon',
-      }),
-    }],
-    [{
-
-      cols: 2,
-      fixed: false,
-      config: await rule.view.input('find', {
-        type: 'input',
-        label: '*find',
-        placeholder: '',
-        color: '',
-      }),
-    }, {
-
-      cols: 1,
-      fixed: true,
-      config: await rule.view.checkbox('case-sensitive', {
-        color: 'primary',
-        icon: 'case-sensitive',
-        fontSet: 'vscode',
-        type: 'icon',
-      }),
-    }, {
-
-      cols: 1,
-      fixed: true,
-      config: await rule.view.checkbox('regexp', {
-        color: 'primary',
-        icon: 'regex',
-        fontSet: 'vscode',
-        type: 'icon',
-      }),
-    },],
-    {
-
-      cols: 4,
-      fixed: false,
-      config: await rule.view.input('replace', {
-        type: 'input',
-        label: 'replace',
-        placeholder: '',
-        color: '',
-      }),
-    },
-
-    [
-
-      {
-
-        cols: 3,
-        fixed: false,
-        config: await rule.view.button({ label: 'find', color: 'primary', type: 'flat' }, async () => {
-          let ignore = await rule.globalVariable.get('ignore');
-          let result = await rule.read.fileResolveByPattern(await rule.globalVariable.get('glob'), undefined, {
-            queryMode: 0,
-            languageOption: await rule.globalVariable.get('languageConfig'),
-            all: true,
-            ignore: ignore
-              ? Object.entries(await rule.read.setting(`search.exclude`))
-                .filter(([key, value]) => value)
-                .map(([key]) => key)
-              : undefined,
-          });
-          let list = [];
-          for (const item of result) {
-            list.push(...(await rule.query.selector(item, await rule.globalVariable.get('selector'), true)));
-          }
-          let regexp = await rule.globalVariable.get('regexp');
-          let caseSensitive = await rule.globalVariable.get('case-sensitive');
-          let find = (await rule.globalVariable.get('find')) || '';
-          if (!caseSensitive) {
-            find = find.toLocaleLowerCase();
-          }
-          list = list.filter((item) => {
-            if (!find) {
-              return true;
-            }
-            let value = item.node.value;
-            if (!caseSensitive) {
-              value = value.toLocaleLowerCase();
-            }
-            if (regexp) {
-              return new RegExp(find).test(value);
-            }
-            return value.includes(find);
-          });
-
-          await rule.globalVariable.set('nodeList', list);
-        }),
-      },
-      {
-
-        cols: 2,
-        fixed: false,
-        config: await rule.view.button({ label: 'replace', color: 'accent', type: 'flat' }, async () => {
-          let replace = await rule.globalVariable.get('replace');
-          let find = (await rule.globalVariable.get('find')) || '';
-          if (!replace) {
-            return;
-          }
-          let ignore = await rule.globalVariable.get('ignore');
-          let caseSensitive = await rule.globalVariable.get('case-sensitive');
-          let list = (await rule.globalVariable.get('nodeListResult')) || (await rule.globalVariable.get('nodeList'));
-          let regexp = await rule.globalVariable.get('regexp');
-          find = regexp ? new RegExp(find, ignore ? 'i' : '') : find;
-          list = list.map((item) => {
-            let value = item.node.value;
-            if (!find) {
-              item.node.value = replace;
-            } else if (regexp) {
-              item.node.value = value.replace(find, replace);
-            } else {
-              item.node.value = replaceI(value, find, replace, caseSensitive);
-            }
-            return item;
-          });
-          await rule.operator.replaceNode(
-            list,
-            (item) => item,
-            (item) => item.node.range,
-            (item) => item.node.value
-          );
-          rule.globalVariable.set('nodeList', undefined);
-        }),
-      },
-    ],
-
-
-    {
-
-      cols: 4,
-      fixed: false,
-      config: list
-        ? await rule.view.showData(
-          'nodeListResult',
+        [
           {
-            type: 'node-list',
+            cols: 2,
+            config: await rule.view.input('selector', {
+              type: 'input',
+              color: '',
+              label: 'selector',
+              placeholder: '',
+            }),
           },
-          list
-        )
-        : undefined,
-    },
-    ],
-  });
+          {
+            cols: 1,
+            fixed: false,
+            config: await rule.view.input('glob', {
+              type: 'input',
+              label: 'glob',
+              placeholder: '',
+              color: '',
+            }),
+          },
+          {
+            cols: 1,
+            fixed: true,
+            config: await rule.view.checkbox('ignore', {
+              color: 'primary',
+              icon: 'exclude',
+              fontSet: 'vscode',
+              type: 'icon',
+            }),
+          },
+        ],
+        [
+          {
+            cols: 2,
+            fixed: false,
+            config: await rule.view.input('find', {
+              type: 'input',
+              label: '*find',
+              placeholder: '',
+              color: '',
+            }),
+          },
+          {
+            cols: 1,
+            fixed: true,
+            config: await rule.view.checkbox('case-sensitive', {
+              color: 'primary',
+              icon: 'case-sensitive',
+              fontSet: 'vscode',
+              type: 'icon',
+            }),
+          },
+          {
+            cols: 1,
+            fixed: true,
+            config: await rule.view.checkbox('regexp', {
+              color: 'primary',
+              icon: 'regex',
+              fontSet: 'vscode',
+              type: 'icon',
+            }),
+          },
+        ],
+        {
+          cols: 4,
+          fixed: false,
+          config: await rule.view.input('replace', {
+            type: 'input',
+            label: 'replace',
+            placeholder: '',
+            color: '',
+          }),
+        },
+
+        [
+          {
+            cols: 3,
+            fixed: false,
+            config: await rule.view.button({ label: 'find', color: 'primary', type: 'flat' }, async () => {
+              let ignore = await rule.globalVariable.get('ignore');
+              let result = await rule.read.fileResolveByPattern(await rule.globalVariable.get('glob'), undefined, {
+                queryMode: 0,
+                languageOption: await rule.globalVariable.get('languageConfig'),
+                all: true,
+                ignore: ignore
+                  ? Object.entries(await rule.read.setting(`search.exclude`))
+                      .filter(([key, value]) => value)
+                      .map(([key]) => key)
+                  : undefined,
+              });
+              let list = [];
+              for (const item of result) {
+                list.push(...(await rule.query.selector(item, await rule.globalVariable.get('selector'), true)));
+              }
+              let regexp = await rule.globalVariable.get('regexp');
+              let caseSensitive = await rule.globalVariable.get('case-sensitive');
+              let find = (await rule.globalVariable.get('find')) || '';
+              if (!caseSensitive) {
+                find = find.toLocaleLowerCase();
+              }
+              list = list.filter((item) => {
+                if (!find) {
+                  return true;
+                }
+                let value = item.node.value;
+                if (!caseSensitive) {
+                  value = value.toLocaleLowerCase();
+                }
+                if (regexp) {
+                  return new RegExp(find).test(value);
+                }
+                return value.includes(find);
+              });
+
+              await rule.globalVariable.set('nodeList', list);
+            }),
+          },
+          {
+            cols: 2,
+            fixed: false,
+            config: await rule.view.button({ label: 'replace', color: 'accent', type: 'flat' }, async () => {
+              let replace = await rule.globalVariable.get('replace');
+              let find = (await rule.globalVariable.get('find')) || '';
+              if (!replace) {
+                return;
+              }
+              let ignore = await rule.globalVariable.get('ignore');
+              let caseSensitive = await rule.globalVariable.get('case-sensitive');
+              let list = (await rule.globalVariable.get('nodeListResult')) || (await rule.globalVariable.get('nodeList'));
+              let regexp = await rule.globalVariable.get('regexp');
+              find = regexp ? new RegExp(find, ignore ? 'i' : '') : find;
+              list = list.map((item) => {
+                let value = item.node.value;
+                if (!find) {
+                  item.node.value = replace;
+                } else if (regexp) {
+                  item.node.value = value.replace(find, replace);
+                } else {
+                  item.node.value = replaceI(value, find, replace, caseSensitive);
+                }
+                return item;
+              });
+              await rule.operator.replaceNode(
+                list,
+                (item) => item,
+                (item) => item.node.range,
+                (item) => item.node.value
+              );
+              rule.globalVariable.set('nodeList', undefined);
+            }),
+          },
+        ],
+        {
+          cols: 4,
+          fixed: false,
+          config: list
+            ? await rule.view.showData(
+                'nodeListResult',
+                {
+                  type: 'node-list',
+                },
+                list
+              )
+            : undefined,
+        },
+      ],
+    });
+  };
 };
 module.exports.parameters = [];
